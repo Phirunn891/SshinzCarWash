@@ -1,0 +1,164 @@
+<div class="payment-container d-flex align-items-center justify-content-center p-4">
+  <div class="payment-card bg-dark-panel border border-dark-subtle rounded-4 shadow-2xl overflow-hidden d-flex flex-column">
+    
+    <!-- Header -->
+    <header class="p-4 px-5 border-bottom border-dark-subtle d-flex justify-content-between align-items-center">
+      <div>
+        <h4 class="text-orange fw-bold mb-1">PREMIUM CAR WASH</h4>
+        <p class="text-white-50 mb-0 small">Station #04 | Cashier: Admin</p>
+      </div>
+      <div class="text-end">
+        <small class="text-white-50 fw-medium">TOTAL AMOUNT</small>
+        <h2 class="text-white fw-small mb-0">${{ totalAmount.toFixed(2) }}</h2>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="d-flex flex-grow-1 overflow-hidden">
+      <!-- Left: Cash Column -->
+      <div class="cash-section p-4 px-5 border-end border-dark-subtle flex-grow-1">
+        <div class="d-flex align-items-center gap-2 mb-4">
+          <i class="bi bi-cash text-orange"></i>
+          <h6 class="text-white fw-bold mb-0">Cash Payment</h6>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <div class="amount-display p-3 rounded-3 bg-dark-base border border-dark-subtle">
+              <label class="text-white-50 x-small fw-bold mb-1">RECEIVED</label>
+              <div class="text-success fw-bold fs-5">${{ receivedAmount }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="amount-display p-3 rounded-3 bg-dark-base border border-dark-subtle">
+              <label class="text-white-50 x-small fw-bold mb-1">CHANGE</label>
+              <div class="text-orange fw-bold fs-5">${{ changeDue.toFixed(2) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keypad-grid mb-4">
+          <button (click)="appendNumber('1')" class="btn btn-keypad">1</button>
+          <button (click)="appendNumber('2')" class="btn btn-keypad">2</button>
+          <button (click)="appendNumber('3')" class="btn btn-keypad">3</button>
+          <button (click)="appendNumber('4')" class="btn btn-keypad">4</button>
+          <button (click)="appendNumber('5')" class="btn btn-keypad">5</button>
+          <button (click)="appendNumber('6')" class="btn btn-keypad">6</button>
+          <button (click)="appendNumber('7')" class="btn btn-keypad">7</button>
+          <button (click)="appendNumber('8')" class="btn btn-keypad">8</button>
+          <button (click)="appendNumber('9')" class="btn btn-keypad">9</button>
+          <button (click)="appendDot()" class="btn btn-keypad">.</button>
+          <button (click)="appendNumber('0')" class="btn btn-keypad">0</button>
+          <button (click)="clearReceived()" class="btn btn-keypad text-danger">C</button>
+        </div>
+
+        <!-- Fast Buttons -->
+        <div class="row g-2 mb-3">
+          <div class="col-4">
+            <button (click)="quickAmount(50)" class="btn btn-fast">$50</button>
+          </div>
+          <div class="col-4">
+            <button (click)="quickAmount(100)" class="btn btn-fast">$100</button>
+          </div>
+          <div class="col-4">
+            <button (click)="setExact()" class="btn btn-fast">Exact</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: QR Column -->
+      <div class="qr-section p-4 px-5 flex-grow-1 text-center bg-dark-base-translucent">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-4">
+          <i class="bi bi-qr-code-scan text-orange"></i>
+          <h6 class="text-white fw-bold mb-0">QR Code Banking</h6>
+        </div>
+
+        <div class="qr-image-wrapper p-3 bg-white rounded-4 shadow-sm mx-auto mb-4" style="max-width: 280px;">
+          <!-- Using placeholder image from brain dir -->
+          <img src="static_qr_placeholder_1773821908771.png" class="img-fluid rounded-3" alt="QR Code">
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center gap-2 text-success small mb-4">
+          <span class="pulse-dot"></span>
+          <span>Waiting for transaction...</span>
+        </div>
+
+        <p class="text-white-50 x-small px-3">
+          Customers can scan this code with any supported banking app to complete the ${{ totalAmount.toFixed(2) }} payment instantly.
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="p-4 px-5 border-top border-dark-subtle bg-dark-base flex-shrink-0">
+      <div class="row g-3">
+        <div class="col-4">
+          <button (click)="printInvoice()" class="btn btn-dark-accent w-100 py-3 rounded-3 fw-bold text-white-50 d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-printer"></i> PRINT INVOICE
+          </button>
+        </div>
+        <div class="col-8">
+          <button (click)="confirmPayment()" class="btn btn-brand-orange w-100 py-3 rounded-3 fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-sm transition">
+            CONFIRM PAYMENT <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Hidden Printable Invoice -->
+<div id="printable-invoice" class="d-none d-print-block bg-dark text-white min-vh-100 p-5 rounded-4 border border-dark-subtle mx-auto" style="max-width: 800px; font-family: 'Inter', sans-serif;">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-start mb-5 pt-3">
+    <div>
+      <h1 class="fw-bold text-white mb-1 fs-2">Order Summary</h1>
+      <p class="text-white-50 small mb-0">Transaction ID: #CW-{{ transactionId }}</p>
+    </div>
+    <span class="badge rounded-pill border border-orange text-orange px-3 py-2 fw-medium" style="font-size: 0.7rem; border-color: #ff6a00 !important;">Premium Tier</span>
+  </div>
+
+  <!-- Selected Services -->
+  <div class="services-list mb-5">
+    <label class="text-white-50 x-small fw-bold mb-4 d-block" style="letter-spacing: 2px;">SELECTED SERVICES</label>
+    
+    <div class="service-row d-flex justify-content-between mb-4 align-items-center" *ngFor="let item of items">
+      <div class="service-info flex-grow-1">
+        <h5 class="text-white fw-bold mb-1">{{ item.name }}</h5>
+        <p class="text-white-50 small mb-0">{{ item.description || 'Professional car care treatment' }}</p>
+      </div>
+      <div class="service-price text-white fw-bold fs-5 ps-4">
+        ${{ item.price.toFixed(2) }}
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-secondary opacity-25 mb-4 my-5">
+
+  <!-- Summary -->
+  <div class="summary-rows mb-5">
+    <div class="d-flex justify-content-between mb-3">
+      <span class="text-white-50 fw-medium">Subtotal</span>
+      <span class="text-white fw-bold fs-5">${{ (totalAmount / 1.08).toFixed(2) }}</span>
+    </div>
+    <div class="d-flex justify-content-between mb-2 pb-4">
+      <span class="text-white-50 fw-medium">Service Tax (8%)</span>
+      <span class="text-white fw-bold fs-5">${{ (totalAmount - (totalAmount / 1.08)).toFixed(2) }}</span>
+    </div>
+    
+    <div class="total-row border-top border-secondary border-opacity-10 pt-4 mt-2 d-flex justify-content-between align-items-center">
+      <h3 class="text-white fw-bold mb-0">Total Amount</h3>
+      <h1 class="text-orange fw-bold mb-0" style="color: #ff6a00 !important; font-size: 3rem;">${{ totalAmount.toFixed(2) }}</h1>
+    </div>
+  </div>
+
+  <!-- Security Footer -->
+  <div class="invoice-footer mt-auto pt-5 border-top border-secondary border-opacity-10 opacity-75">
+    <div class="d-flex justify-content-center align-items-center gap-3 text-white-50 x-small fw-bold" style="letter-spacing: 1px;">
+      <i class="bi bi-shield-check"></i> SECURE TERMINAL
+      <span class="dot-separator mx-2">•</span>
+      PAYMENT ID REQUIRED
+    </div>
+  </div>
+</div>

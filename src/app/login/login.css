@@ -1,0 +1,117 @@
+/* Custom variables and theme */
+:host {
+  display: block;
+}
+
+.login-page-wrapper {
+  background-color: #121212; /* Dark background */
+  padding: 2rem 1rem;
+}
+
+.brand-orange-bg {
+  background: linear-gradient(135deg, #ff7b00, #ff5e00);
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 4px 15px rgba(255, 115, 0, 0.3);
+}
+
+.text-orange {
+  color: #ff6a00 !important;
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+  font-size: 0.65rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #1a1a1e !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+.header-hero {
+  height: 160px;
+  /* Simulated image background since we don't have the actual car interior asset. 
+     Using a dark blurred gradient that mimics it somewhat */
+  background: 
+    linear-gradient(to bottom, rgba(26, 26, 30, 0.1), #1a1a1e),
+    url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=800') center/cover no-repeat;
+}
+
+.header-overlay {
+  background: linear-gradient(to bottom, transparent 20%, #1a1a1e 100%);
+}
+
+.input-group-custom {
+  background-color: #242429;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.2s ease-in-out;
+}
+
+.input-group-custom:focus-within {
+  border-color: rgba(255, 106, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.1);
+}
+
+.input-group-custom .form-control:focus {
+  background-color: transparent;
+  color: white;
+}
+
+.form-control::placeholder {
+  color: rgba(255,255,255,0.3) !important;
+}
+
+.custom-checkbox .form-check-input {
+  border-color: rgba(255,255,255,0.2);
+  cursor: pointer;
+}
+
+.custom-checkbox .form-check-input:checked {
+  background-color: #ff6a00;
+  border-color: #ff6a00;
+}
+
+.btn-brand-orange {
+  background: linear-gradient(to right, #ff7a22, #e85500);
+  transition: all 0.3s ease;
+}
+
+.btn-brand-orange:hover {
+  background: linear-gradient(to right, #ff8c40, #ff6200);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(255, 106, 0, 0.3) !important;
+}
+
+.btn-brand-orange:active {
+  transform: translateY(0);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-text-white:hover {
+  color: #fff !important;
+}
+
+.transition {
+  transition: all 0.2s ease;
+}
+
+/* Ensuring inner form autofill doesn't mess up dark mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #242429 inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

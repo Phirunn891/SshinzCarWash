@@ -1,0 +1,105 @@
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed {
+  width: 85px;
+  min-width: 85px;
+}
+
+/* Hide labels smoothly */
+.hide-on-collapse {
+  opacity: 1;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.sidebar.collapsed .hide-on-collapse {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-10px);
+  width: 0;
+  margin: 0;
+  display: none; /* We use display: none for clean DOM, but animation handles the fade */
+}
+
+/* Re-introducing animation for display none alternative */
+.sidebar.collapsed .hide-on-collapse {
+    display: none;
+}
+
+/* Better way: Clip the labels instead of display none */
+.hide-on-collapse {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+.sidebar.collapsed .hide-on-collapse {
+    width: 0;
+    opacity: 0;
+}
+
+.sidebar.collapsed .sidebar-brand {
+    justify-content: center !important;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-link {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: 0 !important;
+}
+
+.sidebar.collapsed .sidebar-footer {
+    padding: 1.5rem 0.5rem !important;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar.collapsed .user-profile {
+    justify-content: center;
+    gap: 0 !important;
+}
+
+.sidebar.collapsed .sidebar-nav {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.sidebar.collapsed .sidebar-action {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 106, 0, 0.05);
+  color: #ff6a00 !important;
+}
+
+.sidebar .nav-link.active {
+  background-color: rgba(255, 106, 0, 0.1);
+  color: #ff6a00 !important;
+}
+
+.sidebar .nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background-color: #ff6a00;
+  border-radius: 0 4px 4px 0;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}

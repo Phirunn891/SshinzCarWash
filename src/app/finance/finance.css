@@ -1,0 +1,85 @@
+.finance-container {
+  background-color: var(--base-bg);
+  min-height: 100vh;
+  color: white;
+}
+
+.card {
+  background-color: var(--panel-bg) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trend-badge {
+  background-color: rgba(34, 197, 94, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.x-small {
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background-color: #232328 !important;
+}
+
+/* Table Styles */
+.table-custom thead th {
+  background-color: transparent;
+  border: none;
+}
+
+.table-custom tbody td {
+  background-color: transparent;
+}
+
+.bg-success-dim {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.badge-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Chart Mockup */
+.chart-mockup {
+  background: radial-gradient(circle at center, rgba(255, 106, 0, 0.05) 0%, transparent 70%);
+  min-height: 250px;
+}
+
+.min-vh-25 {
+  min-height: 250px;
+}
+
+/* Earner Items */
+.earner-item:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.avatar-stack img {
+  border: 2px solid var(--panel-bg);
+  margin-right: -10px;
+}
+
+@media (max-width: 1200px) {
+  .finance-container {
+    padding: 20px !important;
+  }
+}

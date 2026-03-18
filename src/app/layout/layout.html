@@ -1,0 +1,75 @@
+<div class="dashboard-layout d-flex min-vh-100 text-light bg-dark-base">
+  
+  <!-- Sidebar -->
+  <aside 
+    class="sidebar bg-dark-panel border-end border-dark-subtle d-flex flex-column transition-all"
+    [class.collapsed]="isSidebarCollapsed"
+  >
+    <div class="sidebar-brand p-4 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3 overflow-hidden">
+        <div class="brand-icon d-flex align-items-center justify-content-center text-white brand-orange-bg rounded-3 flex-shrink-0">
+          <i class="bi bi-car-front-fill fs-5"></i>
+        </div>
+        <h5 class="fw-bold mb-0 text-white tracker-tight text-nowrap hide-on-collapse">Sshinz Premium Wash</h5>
+      </div>
+      <button 
+        class="btn btn-dark-accent border-0 p-1 text-white-50 hover-text-white transition"
+        (click)="toggleSidebar()"
+      >
+        <i class="bi" [class.bi-chevron-left]="!isSidebarCollapsed" [class.bi-list]="isSidebarCollapsed"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav px-3 flex-grow-1 mt-2">
+      <a routerLink="/dashboard" class="nav-item nav-link active d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition position-relative">
+        <i class="bi bi-grid-1x2-fill fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Dashboard</span>
+      </a>
+      <a routerLink="/finance" routerLinkActive="active" class="nav-item nav-link text-white-50 d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition">
+        <i class="bi bi-cash-stack fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Finance</span>
+      </a>
+      <a routerLink="/pos" class="nav-item nav-link text-white-50 d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition">
+        <i class="bi bi-display fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Point of Sale (POS)</span>
+      </a>
+      <a href="#" class="nav-item nav-link text-white-50 d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition">
+        <i class="bi bi-people-fill fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Employees</span>
+      </a>
+      <a href="#" class="nav-item nav-link text-white-50 d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition">
+        <i class="bi bi-box-seam-fill fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Inventory</span>
+      </a>
+      <a href="#" class="nav-item nav-link text-white-50 d-flex align-items-center gap-3 py-3 px-3 rounded-3 mb-1 transition">
+        <i class="bi bi-gear-fill fs-5 flex-shrink-0"></i>
+        <span class="fw-medium text-nowrap hide-on-collapse">Settings</span>
+      </a>
+    </nav>
+
+    <!-- NEW ACTION BUTTON -->
+    <div class="px-3 mb-4 transition-all sidebar-action">
+      <button class="btn btn-brand-orange w-100 rounded-pill py-2 fw-semibold text-white d-flex justify-content-center align-items-center gap-2 border-0 shadow-sm overflow-hidden">
+        <i class="bi bi-plus-lg flex-shrink-0"></i>
+        <span class="text-nowrap hide-on-collapse">New Sale</span>
+      </button>
+    </div>
+
+    <div class="sidebar-footer p-4 border-top border-dark-subtle transition-all">
+      <div class="user-profile d-flex align-items-center gap-3 overflow-hidden">
+        <div class="avatar bg-dark-accent rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;">
+          <i class="bi bi-person-fill text-orange fs-5"></i>
+        </div>
+        <div class="user-info hide-on-collapse">
+          <h6 class="mb-0 text-white fw-bold fs-6 text-nowrap">Alex Rivers</h6>
+          <small class="text-white-50 text-nowrap" style="font-size: 0.75rem;">Admin Manager</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Outlet -->
+  <main class="main-content flex-grow-1 d-flex flex-column h-100 overflow-y-auto w-100">
+    <router-outlet />
+  </main>
+</div>

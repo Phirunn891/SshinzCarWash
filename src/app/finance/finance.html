@@ -1,0 +1,142 @@
+<div class="finance-container p-4 px-5">
+  
+  <!-- Header -->
+  <header class="d-flex justify-content-between align-items-center mb-5 mt-2">
+    <div>
+      <h3 class="text-white fw-bold mb-1">Finance & Operations</h3>
+      <p class="text-white-50 small mb-0">Financial insights for your car wash enterprise</p>
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+      <div class="dropdown custom-dropdown">
+        <button class="btn btn-dark-accent rounded-3 border-dark-subtle px-4 py-2 d-flex align-items-center gap-2 text-white-50 small fw-medium">
+          <i class="bi bi-calendar3 text-orange"></i>
+          This Month (Oct 2023)
+          <i class="bi bi-chevron-down ms-2"></i>
+        </button>
+      </div>
+      <button class="btn btn-brand-orange rounded-3 px-4 py-2 fw-bold text-white shadow-sm border-0 d-flex align-items-center gap-2">
+        <i class="bi bi-upload"></i> Export Report
+      </button>
+    </div>
+  </header>
+
+  <!-- Stat Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-12 col-md-6 col-xl-3" *ngFor="let stat of stats">
+      <div class="card stat-card bg-dark-panel border-0 rounded-4 p-4 h-100 transition shadow-sm">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <div class="stat-icon bg-dark-accent p-2 rounded-3 text-orange">
+            <i class="bi fs-5" [class]="stat.icon"></i>
+          </div>
+          <div *ngIf="stat.trend" class="trend-badge d-flex align-items-center gap-1 text-success small fw-bold">
+            <i class="bi bi-graph-up-arrow"></i> {{ stat.trend }}
+          </div>
+          <div *ngIf="stat.detail" class="text-white-50 x-small fw-bold">{{ stat.detail }}</div>
+        </div>
+        <div class="text-white-50 small fw-medium mb-1">{{ stat.title }}</div>
+        <h3 class="text-white fw-bold mb-0">{{ stat.value }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Middle Section: Revenue Breakdown & Top Earners -->
+  <div class="row g-4 mb-5">
+    <!-- Revenue Breakdown Chart Placeholder -->
+    <div class="col-12 col-xl-7">
+      <div class="card bg-dark-panel border-0 rounded-4 p-4 h-100 position-relative">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+          <h5 class="text-white fw-bold mb-0">Revenue Breakdown</h5>
+          <div class="d-flex gap-2">
+            <span class="badge bg-dark-accent text-white-50 rounded-pill px-3 py-1 fw-bold x-small">BASIC</span>
+            <span class="badge bg-orange text-white rounded-pill px-3 py-1 fw-bold x-small shadow-sm">PREMIUM</span>
+            <span class="badge bg-dark-accent text-white-50 rounded-pill px-3 py-1 fw-bold x-small">DETAILING</span>
+          </div>
+        </div>
+        
+        <div class="chart-mockup d-flex align-items-center justify-content-center flex-grow-1 min-vh-25">
+          <div class="text-center">
+            <i class="bi bi-bar-chart-fill fs-1 text-white-10 mb-3 d-block opacity-25"></i>
+            <p class="text-white-50 small px-5">Visual revenue distribution chart by service category and time period</p>
+          </div>
+          
+          <!-- Abstract Mini Labels -->
+          <div class="position-absolute bottom-0 start-0 w-100 p-4 d-flex justify-content-between text-white-50 opacity-50" style="font-size: 0.6rem; letter-spacing: 1px;">
+            <span>BASIC WASH</span><span>PREMIUM</span><span>CERAMIC</span><span>DETAILING</span><span>INTERIOR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Earners -->
+    <div class="col-12 col-xl-5">
+      <div class="card bg-dark-panel border-0 rounded-4 p-4 h-100">
+        <h5 class="text-white fw-bold mb-5">Top Earners (Commission)</h5>
+        
+        <div class="earners-list d-flex flex-column gap-4">
+          <div class="earner-item bg-dark-base-translucent p-3 rounded-4 d-flex justify-content-between align-items-center shadow-sm" *ngFor="let earner of topEarners">
+            <div class="d-flex align-items-center gap-3">
+              <img [src]="earner.avatar" class="rounded-3" width="48" height="48" style="background-color: #2a2a30;">
+              <div>
+                <h6 class="text-white fw-bold mb-0">{{ earner.name }}</h6>
+                <p class="text-white-50 x-small mb-0">{{ earner.role }}</p>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="text-orange fw-bold fs-6">{{ earner.amount }}</div>
+              <div class="text-white-10 text-white-50 x-small">{{ earner.count }}</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-link text-orange text-decoration-none x-small fw-bold mt-5 p-0" style="letter-spacing: 1px;">VIEW ALL EMPLOYEES</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Transactions -->
+  <div class="card bg-dark-panel border-0 rounded-4 overflow-hidden mb-5">
+    <div class="card-header bg-transparent border-0 p-4 pt-5 pb-4 d-flex justify-content-between align-items-center">
+      <h5 class="text-white fw-bold mb-0">Recent Transactions</h5>
+      <div class="table-actions d-flex gap-2">
+        <button class="btn btn-dark-accent rounded-circle p-2 text-white-50"><i class="bi bi-funnel"></i></button>
+        <button class="btn btn-dark-accent rounded-circle p-2 text-white-50"><i class="bi bi-search"></i></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-dark table-custom mb-0 align-middle">
+        <thead>
+          <tr class="border-bottom border-dark-subtle border-opacity-25">
+            <th class="px-4 py-3 text-white-50 x-small fw-bold" style="letter-spacing: 1px;">DATE / TIME</th>
+            <th class="px-4 py-3 text-white-50 x-small fw-bold" style="letter-spacing: 1px;">SERVICE</th>
+            <th class="px-4 py-3 text-white-50 x-small fw-bold text-center" style="letter-spacing: 1px;">METHOD</th>
+            <th class="px-4 py-3 text-white-50 x-small fw-bold text-center" style="letter-spacing: 1px;">STATUS</th>
+            <th class="px-4 py-3 text-white-50 x-small fw-bold text-end" style="letter-spacing: 1px;">AMOUNT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions" class="border-bottom border-dark-subtle border-opacity-10">
+            <td class="px-4 py-4">
+              <div class="text-white small fw-bold mb-0">{{ tx.date }}</div>
+              <div class="text-white-50 x-small">{{ tx.time }}</div>
+            </td>
+            <td class="px-4 py-4">
+              <div class="badge-dot" [style.background-color]="tx.color"></div>
+              <span class="text-white small fw-bold">{{ tx.service }}</span>
+            </td>
+            <td class="px-4 py-4 text-center">
+              <span class="badge border border-dark-subtle text-white-50 rounded-1 px-3 py-1 fw-bold x-small">{{ tx.method }}</span>
+            </td>
+            <td class="px-4 py-4 text-center">
+              <span class="badge bg-success-dim text-success rounded-1 px-2 py-1 fw-bold x-small">COMPLETED</span>
+            </td>
+            <td class="px-4 py-4 text-end text-white fw-bold fs-6">
+              {{ tx.amount }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

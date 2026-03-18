@@ -1,0 +1,84 @@
+<div class="login-page-wrapper d-flex flex-column align-items-center justify-content-center min-vh-100 dark-bg text-light">
+  
+  <div class="brand-header text-center mb-4 d-flex align-items-center justify-content-center flex-column">
+    <div class="logo-icon mb-2 d-flex align-items-center justify-content-center text-white brand-orange-bg rounded-3">
+        <i class="bi bi-car-front-fill fs-3"></i>
+    </div>
+    <h2 class="fw-bold mb-0 text-white brand-title">Sshinz Premium Wash</h2>
+    <small class="brand-subtitle text-uppercase text-orange fw-semibold tracking-wider" style="letter-spacing: 2px;">POINT OF SALE</small>
+  </div>
+
+  <div class="card login-card bg-dark-panel border-0 rounded-4 overflow-hidden shadow-lg p-0">
+    <div class="card-header border-0 position-relative p-0 header-hero">
+      <div class="header-overlay px-4 py-5 d-flex flex-column justify-content-end h-100">
+        <h4 class="fw-bold text-white mb-1">Welcome Back</h4>
+        <p class="text-white-50 mb-0 small">Access your workstation</p>
+      </div>
+    </div>
+    
+    <div class="card-body p-4 p-md-5 pt-4">
+      <form (ngSubmit)="onLogin()">
+        <div class="mb-4">
+          <label class="form-label text-white-50 small fw-medium">Workstation Username</label>
+          <div class="input-group input-group-custom rounded-3">
+            <span class="input-group-text bg-transparent border-0 text-white-50 px-3">
+              <i class="bi bi-person-fill"></i>
+            </span>
+            <input 
+              type="text" 
+              name="name"
+              [(ngModel)]="credentials.name"
+              class="form-control border-0 bg-transparent text-white shadow-none ps-0" 
+              placeholder="Username (e.g. Admin)" 
+              required>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="form-label text-white-50 small fw-medium">Secure Password</label>
+          <div class="input-group input-group-custom rounded-3">
+            <span class="input-group-text bg-transparent border-0 text-white-50 px-3">
+              <i class="bi bi-lock-fill"></i>
+            </span>
+            <input 
+              type="password" 
+              name="password"
+              [(ngModel)]="credentials.password"
+              class="form-control border-0 bg-transparent text-white shadow-none ps-0" 
+              placeholder="••••••••" 
+              required>
+            <span class="input-group-text bg-transparent border-0 text-white-50 px-3 cursor-pointer">
+              <i class="bi bi-eye-fill"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check custom-checkbox">
+            <input class="form-check-input shadow-none bg-transparent" type="checkbox" id="rememberMe">
+            <label class="form-check-label text-white-50 small" for="rememberMe">
+              Remember me
+            </label>
+          </div>
+          <a href="#" class="text-orange text-decoration-none small fw-medium">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-brand-orange w-100 rounded-3 py-2 fw-semibold text-white d-flex justify-content-center align-items-center gap-2 border-0 shadow-sm">
+          Sign In to System <i class="bi bi-arrow-right"></i>
+        </button>
+
+        <div class="mt-5 text-center">
+          <hr class="border-secondary opacity-25">
+          <small class="text-white-50 d-block mt-3" style="font-size: 0.7rem;">Authorized personnel only. Version 4.2.0-stable</small>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-links mt-5 d-flex gap-4">
+    <a href="#" class="text-white-50 text-decoration-none small hover-text-white transition">Support</a>
+    <a href="#" class="text-white-50 text-decoration-none small hover-text-white transition">System Status</a>
+    <a href="#" class="text-white-50 text-decoration-none small hover-text-white transition">Privacy</a>
+  </div>
+
+</div>

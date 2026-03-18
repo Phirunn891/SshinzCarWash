@@ -1,0 +1,156 @@
+<div class="service-container d-flex h-100">
+  
+  <!-- Left Main Content -->
+  <div class="main-services p-4 px-5 flex-grow-1 overflow-y-auto">
+    
+    <!-- Top Bar -->
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <div class="search-wrap flex-grow-1 me-4">
+        <div class="search-bar input-group input-group-custom rounded-pill">
+          <span class="input-group-text bg-transparent border-0 text-white-50 ps-3 pe-2">
+            <i class="bi bi-search"></i>
+          </span>
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery"
+            class="form-control border-0 bg-transparent text-white shadow-none rounded-pill ps-0" 
+            placeholder="Search services...">
+        </div>
+      </div>
+      <button (click)="fetchCategories()" class="btn btn-dark-accent rounded-circle p-2 transition shadow-sm" style="width: 40px; height: 40px;">
+        <i class="bi bi-arrow-clockwise fs-5 d-inline-block" [class.spin-animate]="isRefreshing"></i>
+      </button>
+    </header>
+
+    <!-- Filters -->
+    <div class="filter-tabs d-flex gap-3 mb-5 overflow-x-auto pb-2 scrollbar-hide align-items-center">
+      <button 
+        *ngFor="let filter of filters" 
+        (click)="selectedFilter = filter"
+        class="btn btn-filter px-4 py-2 rounded-3 text-white transition fw-medium"
+        [class.active]="selectedFilter === filter"
+      >
+        {{ filter }}
+      </button>
+
+      <!-- Add More Button -->
+      <button (click)="showAddModal = true" class="btn btn-dark-accent rounded-circle p-2 ms-2 transition" style="width: 40px; height: 40px;">
+        <i class="bi bi-plus-lg fs-5"></i>
+      </button>
+    </div>
+
+    <!-- Add Category Modal -->
+    @if (showAddModal) {
+      <div class="custom-modal-backdrop d-flex align-items-center justify-content-center">
+        <div class="custom-modal bg-dark-panel border border-dark-subtle rounded-4 shadow-lg p-4 transition-all">
+          <div class="modal-header d-flex justify-content-between align-items-center mb-4">
+            <h5 class="text-white fw-bold mb-0">Add New Service</h5>
+            <button (click)="showAddModal = false" class="btn-close btn-close-white shadow-none"></button>
+          </div>
+          
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="text-white-50 small mb-2">Service Name</label>
+              <input type="text" [(ngModel)]="newCategory.categoryName" class="form-control bg-dark-base border-dark-subtle text-white p-2 rounded-3" placeholder="e.g. Engine Steam">
+            </div>
+            <div class="mb-3">
+              <label class="text-white-50 small mb-2">Price ($)</label>
+              <input type="number" [(ngModel)]="newCategory.categoryPrice" class="form-control bg-dark-base border-dark-subtle text-white p-2 rounded-3" placeholder="0.00">
+            </div>
+            <div class="mb-4">
+              <label class="text-white-50 small mb-2">Description</label>
+              <textarea [(ngModel)]="newCategory.categoryDescription" class="form-control bg-dark-base border-dark-subtle text-white p-2 rounded-3" rows="3" placeholder="Describe the service..."></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer d-flex gap-2">
+            <button (click)="showAddModal = false" class="btn btn-dark-accent flex-grow-1 py-2 text-white-50">Cancel</button>
+            <button (click)="saveCategory()" class="btn btn-brand-orange flex-grow-1 py-2 text-white fw-bold">Save Service</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Service Cards Grid -->
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-xxl-4" *ngFor="let cat of filteredCategories">
+        <div class="card service-card bg-dark-panel border-0 rounded-4 p-4 h-100 transition shadow-sm">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="service-icon d-flex align-items-center justify-content-center rounded-3 bg-dark-accent" [className]="'service-icon ' + cat.colorClass">
+              <i class="bi fs-4" [class]="cat.categoryIcon"></i>
+            </div>
+            <div class="service-price fw-bold text-white fs-4">
+              ${{ cat.categoryPrice }}
+            </div>
+          </div>
+          
+          <h5 class="text-white fw-bold mb-2">{{ cat.categoryName }}</h5>
+          <p class="text-white-50 small mb-4 line-clamp-2">{{ cat.categoryDescription }}</p>
+          
+          <button (click)="addToOrder(cat)" class="btn btn-outline-orange w-100 rounded-3 py-2 fw-semibold transition">
+            Add to Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Order Sidebar -->
+  <div class="order-sidebar bg-dark-panel border-start border-dark-subtle d-flex flex-column h-100">
+    <div class="p-4 border-bottom border-dark-subtle bg-dark-base-translucent">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-white fw-bold mb-0">Current Order</h5>
+        <span class="badge rounded-pill bg-dark-accent text-white-50 fw-medium">#CW-4829</span>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+        <span class="badge bg-orange-dim text-orange rounded-pill px-2 py-1 fw-bold x-small">IN-PROGRESS</span>
+        <small class="text-white-50">Vehicle: Silver Audi A4</small>
+      </div>
+    </div>
+
+    <div class="order-list flex-grow-1 overflow-y-auto p-4 custom-scrollbar">
+      <div *ngIf="orderItems.length === 0" class="empty-state text-center py-5">
+        <i class="bi bi-cart-x fs-1 text-white-10 text-muted"></i>
+        <p class="text-muted mt-3">Select services to begin</p>
+      </div>
+
+      <div class="order-item d-flex justify-content-between align-items-start mb-4" *ngFor="let item of orderItems">
+        <div class="item-info">
+          <h6 class="text-white fw-bold mb-1">{{ item.name }}</h6>
+          <small class="text-white-50 d-block">{{ item.quantity }}x Service</small>
+          <button (click)="removeFromOrder(item.id)" class="btn btn-link link-danger p-0 text-decoration-none mt-1" style="font-size: 0.7rem;">
+            Remove
+          </button>
+        </div>
+        <div class="item-price text-white fw-bold">
+          ${{ (item.price * item.quantity).toFixed(2) }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Footer -->
+    <div class="order-summary p-4 pt-1 bg-dark-base-translucent border-top border-dark-subtle">
+      <div class="d-flex justify-content-between mb-2 mt-3">
+        <span class="text-white-50">Subtotal</span>
+        <span class="text-white fw-medium">${{ getSubtotal().toFixed(2) }}</span>
+      </div>
+      <div class="d-flex justify-content-between mb-3 border-bottom border-dark-subtle pb-3">
+        <span class="text-white-50">Tax (8%)</span>
+        <span class="text-white fw-medium">${{ getTax().toFixed(2) }}</span>
+      </div>
+      <div class="d-flex justify-content-between mb-4 mt-2">
+        <span class="text-white fw-bold fs-5">Total</span>
+        <span class="text-orange fw-bold fs-4">${{ getTotal().toFixed(2) }}</span>
+      </div>
+      
+      <div class="row g-2">
+        <div class="col-5">
+          <button class="btn btn-dark-accent w-100 rounded-3 py-2 fw-semibold text-white-50 border-0">SAVE DRAFT</button>
+        </div>
+        <div class="col-7">
+          <button (click)="payNow()" class="btn btn-brand-orange w-100 rounded-3 py-2 fw-semibold text-white border-0 shadow-sm transition">PAY NOW</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

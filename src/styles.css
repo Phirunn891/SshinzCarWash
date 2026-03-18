@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --base-bg: #0e0e11;
+  --panel-bg: #151518;
+  --accent-orange: #ff6a00;
+  --dark-accent: #232328;
+  --text-muted: rgba(255, 255, 255, 0.5);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--base-bg);
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.bg-dark-panel {
+  background-color: var(--panel-bg) !important;
+}
+
+.bg-dark-accent {
+  background-color: var(--dark-accent) !important;
+}
+
+.text-orange {
+  color: var(--accent-orange) !important;
+}
+
+.btn-brand-orange {
+  background-color: var(--accent-orange) !important;
+  color: white !important;
+}
+
+.transition {
+  transition: all 0.2s ease-in-out;
+}

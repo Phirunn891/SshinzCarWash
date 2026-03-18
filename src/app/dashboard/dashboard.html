@@ -1,0 +1,240 @@
+
+    <!-- Top Header -->
+    <header class="content-header p-4 px-5 d-flex justify-content-between align-items-center border-bottom border-dark-subtle sticky-top bg-dark-base-translucent">
+      <div>
+        <h3 class="fw-bold text-white mb-1">Welcome, {{ userName }}</h3>
+        <p class="text-white-50 mb-0 small">Real-time revenue and payroll insights</p>
+      </div>
+      <div class="header-actions d-flex gap-3 align-items-center">
+        <div class="search-bar input-group input-group-custom rounded-pill">
+          <span class="input-group-text bg-transparent border-0 text-white-50 ps-3 pe-2">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="form-control border-0 bg-transparent text-white shadow-none rounded-pill ps-0" placeholder="Search data...">
+        </div>
+        <button class="btn btn-dark-accent border-0 text-white-50 rounded-pill px-4 py-2 shadow-sm transition hover-text-white" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+        <button class="btn btn-brand-orange rounded-pill px-4 py-2 fw-semibold text-white d-flex align-items-center gap-2 border-0 shadow-sm text-nowrap">
+          <i class="bi bi-download"></i> Export Report
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="p-4 px-5 flex-grow-1">
+      
+      <!-- Sub Tabs -->
+      <ul class="nav custom-tabs border-bottom border-dark-subtle mb-4 pb-0 gap-4">
+        <li class="nav-item">
+          <a class="nav-link text-white-50 fw-medium px-1 py-3" href="#">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white-50 fw-medium px-1 py-3" href="#">Weekly</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-orange fw-medium px-1 py-3 position-relative" aria-current="page" href="#">Monthly</a>
+        </li>
+      </ul>
+
+      <!-- Summary Cards -->
+      <div class="row g-4 mb-4">
+        <!-- Card 1 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card stat-card bg-dark-panel border-0 rounded-4 h-100 p-4">
+            <div class="text-white-50 small fw-medium mb-2">Total Revenue</div>
+            <h2 class="text-white fw-bold mb-2">$42,850.00</h2>
+            <div class="d-flex align-items-center text-success small fw-semibold">
+              <i class="bi bi-arrow-up-right me-1"></i> +12.5%
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card stat-card bg-dark-panel border-0 rounded-4 h-100 p-4">
+            <div class="text-white-50 small fw-medium mb-2">Avg Order Value</div>
+            <h2 class="text-white fw-bold mb-2">$38.50</h2>
+            <div class="d-flex align-items-center text-success small fw-semibold">
+              <i class="bi bi-arrow-up-right me-1"></i> +2.1%
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card stat-card bg-dark-panel border-0 rounded-4 h-100 p-4">
+            <div class="text-white-50 small fw-medium mb-2">Top Performing</div>
+            <h2 class="text-white fw-bold mb-2">Premium</h2>
+            <div class="d-flex align-items-center text-white-50 small fw-medium">
+              <i class="bi bi-check-circle-fill text-white-50 me-2"></i> Service Wash
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card stat-card bg-dark-panel border-0 rounded-4 h-100 p-4">
+            <div class="text-white-50 small fw-medium mb-2">Total Payroll</div>
+            <h2 class="text-white fw-bold mb-2">$12,400.00</h2>
+            <div class="d-flex align-items-center text-danger small fw-semibold">
+              <i class="bi bi-arrow-down-right me-1"></i> -1.5% vs Prev
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="row g-4 mb-4 position-relative">
+        <div class="col-12 col-xl-7 z-1">
+          <div class="card bg-dark-panel border-0 rounded-4 p-4 h-100 position-relative overflow-hidden">
+            <div class="d-flex justify-content-between align-items-start mb-4 relative z-2">
+              <h5 class="text-white fw-bold mb-0">Car Washes per Month</h5>
+              <div class="dropdown">
+                <button class="btn btn-link text-white-50 text-decoration-none dropdown-toggle p-0 small fw-medium" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Last 12 Months
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark border-dark-subtle">
+                  <li><a class="dropdown-item" href="#">Last 6 Months</a></li>
+                  <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- Simulated sine wave chart via SVG -->
+            <div class="chart-container flex-grow-1 position-relative mt-5 d-flex flex-column justify-content-end z-2">
+                <svg width="100%" height="220" viewBox="0 0 1000 220" preserveAspectRatio="none" class="chart-line">
+                    <defs>
+                        <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ff6a00" stop-opacity="0.8" />
+                            <stop offset="50%" stop-color="#ff8c00" stop-opacity="1" />
+                            <stop offset="100%" stop-color="#ffb347" stop-opacity="1" />
+                        </linearGradient>
+                        <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#ff6a00" stop-opacity="0.1" />
+                            <stop offset="100%" stop-color="#ff6a00" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,180 C100,200 150,220 250,180 C350,140 400,20 500,60 C600,100 650,230 750,120 C800,60 850,-40 950,-10 L1050,-10 L1050,300 L-100,300 Z" fill="url(#fillGrad)" transform="translate(0, 15)"></path>
+                    <path class="dynamic-line" d="M0,180 C100,200 150,220 250,180 C350,140 400,20 500,60 C600,100 650,230 750,120 C820,-40 850,-40 950,50 L1000,110" fill="none" stroke="url(#lineGrad)" stroke-width="4" stroke-linecap="round"></path>
+                    
+                </svg>
+                <!-- Chart X Axis labels -->
+                <div class="d-flex justify-content-between text-white-50 opacity-75 mt-3 px-2" style="font-size: 0.65rem; font-weight: 700;">
+                  <span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span>
+                  <span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-xl-5 z-0">
+          <div class="card bg-dark-panel border-0 rounded-4 p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+              <h5 class="text-white fw-bold mb-0">Revenue by Service</h5>
+              <span class="badge rounded-pill badge-ghost-orange border border-orange text-orange px-3 fw-medium">Monthly Split</span>
+            </div>
+            
+            <div class="bars-container d-flex flex-column gap-4 flex-grow-1 justify-content-center">
+              
+              <div class="service-bar-item">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-white fw-medium small">Premium Wash</span>
+                  <span class="text-white fw-bold small">$22,450</span>
+                </div>
+                <div class="progress custom-progress bg-dark-accent rounded-pill" style="height: 10px;">
+                  <div class="progress-bar bg-orange rounded-pill" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <div class="service-bar-item">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-white fw-medium small">Basic Wash</span>
+                  <span class="text-white fw-bold small">$12,100</span>
+                </div>
+                <div class="progress custom-progress bg-dark-accent rounded-pill" style="height: 10px;">
+                  <div class="progress-bar bg-orange-dim rounded-pill" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <div class="service-bar-item">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-white fw-medium small">Oil Change</span>
+                  <span class="text-white fw-bold small">$8,300</span>
+                </div>
+                <div class="progress custom-progress bg-dark-accent rounded-pill" style="height: 10px;">
+                  <div class="progress-bar bg-orange-dim rounded-pill" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Table -->
+      <div class="card bg-dark-panel border-0 rounded-4 overflow-hidden">
+        <div class="card-header border-0 bg-transparent p-4 d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="text-white fw-bold mb-1">Monthly Payroll Control</h5>
+            <p class="text-white-50 mb-0 small">Managing 12 active staff members</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-dark-accent border-0 text-white-50 rounded-3 px-3 shadow-sm hover-text-white transition">
+              <i class="bi bi-funnel-fill"></i>
+            </button>
+            <button class="btn btn-brand-orange rounded-pill px-4 py-2 fw-semibold text-white border-0 shadow-sm">
+              Run Payroll
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-dark table-custom mb-0 align-middle border-dark-subtle">
+            <thead>
+              <tr>
+                <th scope="col" class="py-3 px-4 text-white-50 fw-semibold" style="font-size: 0.7rem; letter-spacing: 1px;">EMPLOYEE</th>
+                <th scope="col" class="py-3 px-4 text-white-50 fw-semibold" style="font-size: 0.7rem; letter-spacing: 1px;">ROLE</th>
+                <th scope="col" class="py-3 px-4 text-white-50 fw-semibold" style="font-size: 0.7rem; letter-spacing: 1px;">STATUS</th>
+                <th scope="col" class="py-3 px-4 text-white-50 fw-semibold text-center" style="font-size: 0.7rem; letter-spacing: 1px;">HOURS</th>
+                <th scope="col" class="py-3 px-4 text-white-50 fw-semibold text-end" style="font-size: 0.7rem; letter-spacing: 1px;">TOTAL PAYABLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1 -->
+              <tr>
+                <td class="px-4 py-3 border-dark-subtle border-opacity-50">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Johnathan Smith" class="rounded-circle" width="36" height="36" style="border: 2px solid #242429;">
+                    <span class="text-white fw-bold small">Johnathan Smith</span>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-white-50 small border-dark-subtle border-opacity-50">Lead Detailer</td>
+                <td class="px-4 py-3 border-dark-subtle border-opacity-50">
+                  <span class="badge bg-success-dim text-success rounded-pill px-2 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.65rem;">
+                    <i class="bi bi-circle-fill" style="font-size: 0.35rem;"></i> ACTIVE
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-white small text-center border-dark-subtle border-opacity-50">164h</td>
+                <td class="px-4 py-3 text-white fw-bold text-end border-dark-subtle border-opacity-50">$2,850.00</td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="px-4 py-3 border-dark-subtle border-opacity-10 border-bottom-0">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Sarah Jenkins" class="rounded-circle" width="36" height="36" style="border: 2px solid #242429;">
+                    <span class="text-white fw-bold small">Sarah Jenkins</span>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-white-50 small border-dark-subtle border-opacity-10 border-bottom-0">Mechanic</td>
+                <td class="px-4 py-3 border-dark-subtle border-opacity-10 border-bottom-0">
+                  <span class="badge bg-success-dim text-success rounded-pill px-2 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.65rem;">
+                    <i class="bi bi-circle-fill" style="font-size: 0.35rem;"></i> ACTIVE
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-white small text-center border-dark-subtle border-opacity-10 border-bottom-0">152h</td>
+                <td class="px-4 py-3 text-white fw-bold text-end border-dark-subtle border-opacity-10 border-bottom-0">$3,100.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>

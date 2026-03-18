@@ -1,0 +1,191 @@
+.service-container {
+  overflow: hidden;
+  background-color: var(--base-bg);
+}
+
+.main-services {
+  max-width: calc(100% - 350px);
+}
+
+.order-sidebar {
+  width: 350px;
+  min-width: 350px;
+}
+
+.search-bar {
+  max-width: 320px;
+}
+
+/* Refresh Icon Spin Animation */
+.spin-animate {
+    animation: rotate-sync 0.6s linear infinite;
+}
+
+@keyframes rotate-sync {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.input-group-custom {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.input-group-custom:focus-within {
+  border-color: rgba(255, 106, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Filters */
+.btn-filter {
+  background-color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-filter:hover {
+  background-color: var(--accent-orange) !important;
+  color: white !important;
+}
+
+.btn-filter.active {
+  background: var(--accent-orange) !important;
+  box-shadow: 1 4px 15px rgb(223, 97, 1);
+}
+
+/* Service Card */
+.service-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #232328 !important;
+  color: white !important;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  background-color: #ff6e13 !important;
+  box-shadow: 0 10px 30px rgba(255, 157, 0, 0.  719) !important;
+}
+
+.service-icon {
+  width: 45px;
+  height: 45px;
+}
+
+/* Icon Colors from Meta */
+.service-icon.blue i { color: #3b82f6; }
+.service-icon.orange i { color: #f59e0b; }
+.service-icon.green i { color: #10b981; }
+.service-icon.purple i { color: #8b5cf6; }
+.service-icon.cyan i { color: #06b6d4; }
+.service-icon.magenta i { color: #d946ef; }
+
+.btn-outline-orange {
+  border: 1px solid rgb(255, 255, 255);
+  color: var(--accent-orange);
+  transition: all 0.2s ease;
+}
+
+.btn-outline-orange:hover {
+  background-color: var(--accent-orange) !important;
+  color: rgb(255, 255, 255) !important;
+  border-color: var(--accent-orange);
+}
+
+.btn-dark-accent {
+  transition: all 0.2s ease;
+}
+
+.btn-dark-accent:hover {
+  background-color: var(--accent-orange) !important;
+  color: white !important;
+  border-color: white;
+}
+
+/* Order List */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+/* POS Specific UI */
+.x-small {
+  font-size: 0.65rem;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .service-container {
+    flex-direction: column;
+  }
+  .main-services {
+    max-width: 100%;
+  }
+  .order-sidebar {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+  }
+}
+
+/* Custom Modal Styles */
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(9, 9, 11, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.custom-modal {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--panel-bg);
+  animation: slideUp 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent-orange) !important;
+  box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.1) !important;
+}
+
+/* Modal Buttons */
+.btn-close-white {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
