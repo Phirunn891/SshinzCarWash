@@ -77,7 +77,7 @@ export class Pos implements OnInit {
       const token = localStorage.getItem('auth_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       
-      this.http.get<Category[]>('http://localhost:3000/categories', { headers }).subscribe({
+      this.http.get<Category[]>('http://localhost:3000/api/v1/categories', { headers }).subscribe({
         next: (data) => {
           this.categories = data.map(cat => ({
             ...cat,
@@ -99,7 +99,7 @@ export class Pos implements OnInit {
       const token = localStorage.getItem('auth_token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       
-      this.http.post('http://localhost:3000/categories', this.newCategory, { headers }).subscribe({
+      this.http.post('http://localhost:3000/api/v1/categories', this.newCategory, { headers }).subscribe({
         next: () => {
           this.fetchCategories(); // Refresh list
           this.showAddModal = false;

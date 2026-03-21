@@ -1,23 +1,26 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
-import { Dashboard } from './dashboard/dashboard';
-import { Layout } from './layout/layout';
-import { Pos } from './pos/pos';
-import { GeneratePayment } from './generate-payment/generate-payment';
-import { Finance } from './finance/finance';
-import { authGuard } from './guards/auth.guard';
+import { Login } from './layout/login/login';
+import { Dashboard } from './features/dashboard/dashboard';
+import { Layout } from './layout/admin/layout';
+import { Pos } from './features/pos/pos';
+import { GeneratePayment } from './features/generate-payment/generate-payment';
+import { Finance } from './features/finance/finance';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: Login },
+  {path: "", redirectTo: 'login', pathMatch: "full"},
+  { path: 'login', component: Login },
   { 
-    path: '', 
+    path: 'layout', 
+    // canActivate: [authGuard],
     component: Layout,
     children: [
-      { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
-      { path: 'pos', component: Pos, canActivate: [authGuard] },
-      { path: 'generate-payment', component: GeneratePayment, canActivate: [authGuard] },
-      { path: 'finance', component: Finance, canActivate: [authGuard] }
+      {path: "", redirectTo: 'dashboard', pathMatch: "full"},
+      { path: 'dashboard', component: Dashboard },
+      { path: 'pos', component: Pos },
+      { path: 'generate-payment', component: GeneratePayment },
+      { path: 'finance', component: Finance }
     ]
   },
-  { path: '**', redirectTo: '' }
+  // { path: '**', redirectTo: '' }
 ];

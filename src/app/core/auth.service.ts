@@ -2,25 +2,38 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, tap } from 'rxjs';
+import { enviroment } from '../../environments/environment';
+
+interface LoginResponse {
+  success: boolean;
+  data: {
+    token: string;
+    staff: {
+      id: string;
+      name: string;
+      role: string;
+    }
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/users';
+  private readonly apiUrl: string = `${enviroment.apiUrl}/auth`
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  login(credentials: { name: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      tap((res: any) => {
-        if (res && res.token && isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('auth_token', res.token);
-          localStorage.setItem('user_role', res.role);
-          localStorage.setItem('user_name', res.name);
+  login(credentials: { name: string; pin: string }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
+      tap((res) => {
+        if (res && res.data.token && isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('auth_token', res.data.token);
+          localStorage.setItem('user_role', res.data.staff.role);
+          localStorage.setItem('user_name', res.data.staff.name);
         }
       })
     );
@@ -39,6 +52,13 @@ export class AuthService {
       return !!localStorage.getItem('auth_token');
     }
     return false;
+  }
+
+  getToken(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('auth_token');
+    }
+    return null;
   }
 
   getRole(): string | null {
