@@ -1,8 +1,9 @@
 import { Component, OnInit, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { enviroment } from '../../../environments/environment';
 
 interface Category {
   categoryId: number;
@@ -74,10 +75,7 @@ export class Pos implements OnInit {
   fetchCategories() {
     if (isPlatformBrowser(this.platformId)) {
       this.isRefreshing = true;
-      const token = localStorage.getItem('auth_token');
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      
-      this.http.get<Category[]>('http://localhost:3000/api/v1/categories', { headers }).subscribe({
+      this.http.get<Category[]>(`${enviroment.apiUrl}/categories`).subscribe({
         next: (data) => {
           this.categories = data.map(cat => ({
             ...cat,
@@ -96,10 +94,7 @@ export class Pos implements OnInit {
 
   saveCategory() {
     if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('auth_token');
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      
-      this.http.post('http://localhost:3000/api/v1/categories', this.newCategory, { headers }).subscribe({
+      this.http.post(`${enviroment.apiUrl}/categories`, this.newCategory).subscribe({
         next: () => {
           this.fetchCategories(); // Refresh list
           this.showAddModal = false;
