@@ -99,10 +99,13 @@
           </button>
         </div>
         <div class="col-8">
-          <button (click)="confirmPayment()" class="btn btn-brand-orange w-100 py-3 rounded-3 fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-sm transition">
-            CONFIRM PAYMENT <i class="bi bi-arrow-right"></i>
+          <button (click)="confirmPayment()" [disabled]="isProcessing" class="btn btn-brand-orange w-100 py-3 rounded-3 fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-sm transition">
+            <span *ngIf="!isProcessing">CONFIRM PAYMENT <i class="bi bi-arrow-right"></i></span>
+            <span *ngIf="isProcessing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span *ngIf="isProcessing"> PROCESSING...</span>
           </button>
         </div>
+
       </div>
     </footer>
   </div>

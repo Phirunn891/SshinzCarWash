@@ -5,6 +5,9 @@ import { Layout } from './layout/admin/layout';
 import { Pos } from './features/pos/pos';
 import { GeneratePayment } from './features/generate-payment/generate-payment';
 import { Finance } from './features/finance/finance';
+import { Inventory } from './features/inventory/inventory';
+import { Employees } from './features/employees/employees';
+import { Settings } from './features/settings/settings';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -19,8 +22,12 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'pos', component: Pos },
       { path: 'generate-payment', component: GeneratePayment },
-      { path: 'finance', component: Finance }
+      { path: 'finance', component: Finance },
+      { path: 'inventory', component: Inventory },
+      { path: 'employees', component: Employees },
+      { path: 'settings', component: Settings }
     ]
   },
-  // { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'login' }
 ];
+

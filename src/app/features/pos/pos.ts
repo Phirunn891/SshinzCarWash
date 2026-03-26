@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { enviroment } from '../../../environments/environment';
 
 interface Category {
-  categoryId: number;
+  categoryId: string; // Changed to string for UUID support
   categoryName: string;
   categoryPrice: number;
   categoryDescription: string;
@@ -14,12 +14,14 @@ interface Category {
   colorClass?: string;
 }
 
+
 interface OrderItem {
-  id: number;
+  id: string; // Changed to string for UUID support
   name: string;
   price: number;
   quantity: number;
 }
+
 
 @Component({
   selector: 'app-pos',
@@ -75,22 +77,31 @@ export class Pos implements OnInit {
   fetchCategories() {
     if (isPlatformBrowser(this.platformId)) {
       this.isRefreshing = true;
-      this.http.get<Category[]>(`${enviroment.apiUrl}/categories`).subscribe({
-        next: (data) => {
-          this.categories = data.map(cat => ({
-            ...cat,
-            categoryIcon: this.iconsMap[cat.categoryName] || 'bi-gear-fill',
-            colorClass: this.colorsMap[cat.categoryName] || 'orange'
-          }));
-          setTimeout(() => this.isRefreshing = false, 600); // 0.6s smooth spin
+      // Fetching from /pos/services as it contains the real car wash items with pricing and inventory rules
+      this.http.get<{success: boolean, data: any[]}>(`${enviroment.apiUrl}/pos/services`).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+            this.categories = res.data.map(svc => ({
+              categoryId: svc.id,
+              categoryName: svc.name,
+              categoryPrice: Number(svc.price),
+              categoryDescription: svc.vehicle_type ? `Type: ${svc.vehicle_type}` : 'Professional Service',
+              categoryIcon: this.iconsMap[svc.name] || 'bi-gear-fill',
+              colorClass: this.colorsMap[svc.name] || 'orange'
+            }));
+          }
+          setTimeout(() => this.isRefreshing = false, 600);
         },
         error: (err) => {
-          console.error('Error fetching categories:', err);
+          console.error('Error fetching services:', err);
           this.isRefreshing = false;
+          alert('Failed to load services! Please ensure the backend is running at http://localhost:4001');
         }
+
       });
     }
   }
+
 
   saveCategory() {
     if (isPlatformBrowser(this.platformId)) {
@@ -128,9 +139,10 @@ export class Pos implements OnInit {
     }
   }
 
-  removeFromOrder(id: number) {
+  removeFromOrder(id: string) {
     this.orderItems = this.orderItems.filter(item => item.id !== id);
   }
+
 
   getSubtotal() {
     return this.orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -146,9 +158,11 @@ export class Pos implements OnInit {
 
   payNow() {
     if (this.orderItems.length > 0) {
-      this.router.navigate(['/generate-payment'], { 
+      console.log('Navigating to payment with:', this.orderItems);
+      this.router.navigate(['/layout/generate-payment'], { 
         state: { total: this.getTotal(), items: this.orderItems } 
       });
     }
   }
+
 }

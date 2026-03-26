@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PosApiService, CheckoutRequest } from '../pos/service/pos-api.service';
 
 @Component({
   selector: 'app-generate-payment',
@@ -12,6 +13,10 @@ import { Router } from '@angular/router';
 })
 export class GeneratePayment implements OnInit {
   private router = inject(Router);
+  private posApi = inject(PosApiService);
+  private platformId = inject(PLATFORM_ID);
+  
+  isProcessing = false;
 
   totalAmount: number = 0;
   receivedAmount: string = '0.00';
@@ -22,17 +27,15 @@ export class GeneratePayment implements OnInit {
   qrCodeImage = 'static_qr_placeholder_1773821908771.png'; // Need correct path
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    const state = history.state;
-    
-    if (state && state.total) {
-      this.totalAmount = state.total;
-      this.items = state.items;
-    } else {
-      // Fallback or redirect if no total found
-      // this.router.navigate(['/pos']);
+    if (isPlatformBrowser(this.platformId)) {
+      const state = history.state;
+      if (state && state.total) {
+        this.totalAmount = state.total;
+        this.items = state.items;
+      }
     }
   }
+
 
   appendNumber(num: string) {
     if (this.receivedAmount === '0.00') {
@@ -73,9 +76,34 @@ export class GeneratePayment implements OnInit {
   }
 
   confirmPayment() {
-    alert('Payment Confirmed! Updating inventory...');
-    this.router.navigate(['/pos']);
+    if (this.isProcessing) return;
+    
+    this.isProcessing = true;
+    const checkoutRequest: CheckoutRequest = {
+      items: this.items.map(item => ({
+        service_id: item.id,
+        qty: item.quantity
+      })),
+      payment_method: 'CASH', // default for now, can be expanded to UI selection
+      points_used: 0
+    };
+
+    this.posApi.checkout(checkoutRequest).subscribe({
+      next: (res) => {
+        this.isProcessing = false;
+        if (res.success) {
+          alert(`Success! Transaction ID: ${res.data.transaction_id}`);
+          this.router.navigate(['/layout/pos']);
+        }
+      },
+      error: (err) => {
+        this.isProcessing = false;
+        console.error('Checkout failed', err);
+        alert('Checkout failed! ' + (err.error?.message || 'Server error'));
+      }
+    });
   }
+
 
   printInvoice() {
     window.print();
